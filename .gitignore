@@ -51,3 +51,4 @@ Pipfile.lock
 # Others
 *.bak
 *.orig
+.streamlit/

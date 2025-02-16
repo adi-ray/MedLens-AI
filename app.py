@@ -1,20 +1,17 @@
 import streamlit as st
 from pathlib import Path
 import google.generativeai as genai
-from dotenv import load_dotenv
 import os
 import logging
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-load_dotenv()
-
 # Access the API key
-google_api_key = os.getenv("GOOGLE_API_KEY")
+google_api_key = st.secrets["GOOGLE_API_KEY"]
 if not google_api_key:
-    st.error("GOOGLE_API_KEY not found. Please check your .env file.")
-    logging.error("GOOGLE_API_KEY not found. Ensure the .env file is properly configured.")
+    st.error("GOOGLE_API_KEY not found. Please check your secrets.toml or Streamlit Cloud settings.")
+    logging.error("GOOGLE_API_KEY not found in secrets.")
     st.stop() 
 
 # Configure the Generative AI client
@@ -78,7 +75,7 @@ except Exception as e:
     st.stop()
 
 # Streamlit app configuration
-st.set_page_config(page_title="Visual Medical Assistant", page_icon="🩺", layout="wide")
+st.set_page_config(page_title="MedLens-AI", page_icon="🩺", layout="wide")
 st.title("Visual Medical Assistant 👨‍⚕️ 🩺 🏥")
 st.subheader("An app to assist with medical image analysis and report generation")
 
